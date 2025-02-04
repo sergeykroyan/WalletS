@@ -25,10 +25,12 @@ def camel_case_to_snake_case(s: str) -> str:
             #   1. This is not the first character AND
             #   2. Either the previous character is lowercase (transitioning from a lower to uppercase)
             #      OR the next character exists and is lowercase (indicating the end of an abbreviation).
-            if i > 0 and (s[i - 1].islower() or (i + 1 < len(s) and s[i + 1].islower())):
-                result.append('_')
+            if i > 0 and (
+                s[i - 1].islower() or (i + 1 < len(s) and s[i + 1].islower())
+            ):
+                result.append("_")
             result.append(char.lower())
         else:
             result.append(char)
 
-    return ''.join(result)
+    return "".join(result)
