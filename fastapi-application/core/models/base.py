@@ -2,7 +2,7 @@ from sqlalchemy import MetaData
 from sqlalchemy.orm import DeclarativeBase, declared_attr
 from sqlalchemy.orm import Mapped, mapped_column
 
-from core.config import settings
+from core.config import POSTGRES_INDEXES_NAMING_CONVENTION
 from utils import camel_case_to_snake_case
 
 
@@ -10,7 +10,7 @@ class Base(DeclarativeBase):
     __abstract__ = True
 
     metadata = MetaData(
-        naming_convention=settings.db.naming_convention,
+        naming_convention=POSTGRES_INDEXES_NAMING_CONVENTION,
     )
 
     @declared_attr.directive
