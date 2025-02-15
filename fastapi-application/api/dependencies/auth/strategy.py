@@ -7,7 +7,6 @@ from .access_tokens import get_access_token_db
 from typing import TYPE_CHECKING
 
 
-
 if TYPE_CHECKING:
     from fastapi_users.authentication.strategy.db import AccessTokenDatabase
     from core.models import AccessToken
@@ -18,5 +17,5 @@ def get_database_strategy(
 ) -> DatabaseStrategy:
     return DatabaseStrategy(
         database=access_tokens_db,
-        lifetime_seconds=settings.access_token.lifetime_seconds
+        lifetime_seconds=settings.access_token.lifetime_seconds,
     )
