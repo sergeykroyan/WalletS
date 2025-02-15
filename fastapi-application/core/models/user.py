@@ -1,12 +1,8 @@
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
+from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
+from sqlalchemy import Column, Boolean
 
 from .base import Base
 
 
-class User(Base):
-    username: Mapped[str] = mapped_column(unique=True)
-
-    @property
-    def email(self) -> str:
-        return f"{self.username}@gmail.com"
+class User(Base, SQLAlchemyBaseUserTable[int]):
+    is_admin = Column(Boolean, default=False)
