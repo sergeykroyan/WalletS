@@ -3,7 +3,7 @@ services:
   pg:
     image: postgres
     environment:
-      POSTGRES_DB: shop
+      POSTGRES_DB: wallet
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     ports:
