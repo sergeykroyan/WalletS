@@ -4,12 +4,13 @@ from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable, SQLAlchemyUserD
 from sqlalchemy import Column, Boolean
 
 from .base import Base
+from .mixins.id import IdIntPkMixin
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
 
 
-class User(Base, SQLAlchemyBaseUserTable[int]):
+class User(Base, IdIntPkMixin, SQLAlchemyBaseUserTable[int]):
     is_admin = Column(Boolean, default=False)
 
     @classmethod
