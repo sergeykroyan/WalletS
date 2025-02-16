@@ -1,4 +1,4 @@
-from sqlalchemy import MetaData
+from sqlalchemy import MetaData, Integer
 from sqlalchemy.orm import DeclarativeBase, declared_attr
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -16,5 +16,3 @@ class Base(DeclarativeBase):
     @declared_attr.directive
     def __tablename__(cls) -> str:
         return f"{camel_case_to_snake_case(cls.__name__)}s"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
