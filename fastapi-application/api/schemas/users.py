@@ -4,6 +4,7 @@ from typing import Optional
 
 
 class UserRead(schemas.BaseUser[int]):
+    id: int
     is_admin: bool
 
 
