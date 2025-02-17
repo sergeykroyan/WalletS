@@ -24,9 +24,7 @@ def upgrade() -> None:
         "accounts",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("user_id", sa.Integer(), nullable=False),
-        sa.Column(
-            "balance", sa.Numeric(precision=12, scale=2), nullable=False
-        ),
+        sa.Column("balance", sa.Numeric(precision=12, scale=2), nullable=False),
         sa.Column(
             "created_at",
             sa.DateTime(),
@@ -41,7 +39,6 @@ def upgrade() -> None:
     op.create_table(
         "invoices",
         sa.Column("id", sa.Integer(), nullable=False),
-
         sa.Column("account_id", sa.Integer(), nullable=False),
         sa.Column("amount", sa.Numeric(precision=12, scale=2), nullable=False),
         sa.Column(
@@ -94,9 +91,7 @@ def upgrade() -> None:
         ),
         sa.Column(
             "category",
-            sa.Enum(
-                "deposit", "transfer", "withdrawal", name="transactioncategory"
-            ),
+            sa.Enum("deposit", "transfer", "withdrawal", name="transactioncategory"),
             nullable=False,
         ),
         sa.ForeignKeyConstraint(
