@@ -51,3 +51,14 @@ async def create_account(
     await db.commit()
     await db.refresh(new_account)
     return new_account
+
+
+@router.get("/me", response_model=list[AccountResponse])
+async def get_user_accounts(
+    db: AsyncSession = Depends(db_helper.session_getter),
+    user=Depends(current_user),
+):
+    result = await db.execute(select(Account).filter(Account.user_id == user.id))
+    accounts = result.scalars().all()
+
+    return accounts
