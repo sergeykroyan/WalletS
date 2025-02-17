@@ -1,8 +1,9 @@
+import uuid
 from decimal import Decimal
 from datetime import datetime
 from typing import List, TYPE_CHECKING
 
-from sqlalchemy import Integer, DateTime, func, Numeric, ForeignKey
+from sqlalchemy import Integer, DateTime, func, Numeric, ForeignKey, String
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from core.models import Base
@@ -14,6 +15,10 @@ if TYPE_CHECKING:
 
 
 class Account(Base, IdIntPkMixin):
+    account_name: Mapped[str] = mapped_column(String(100), nullable=False)
+    account_number: Mapped[str] = mapped_column(
+        String(12), unique=True, index=True, nullable=False
+    )
     user_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("users.id"), nullable=False
     )
@@ -35,3 +40,8 @@ class Account(Base, IdIntPkMixin):
     invoices: Mapped[List["Invoice"]] = relationship(
         "Invoice", back_populates="account"
     )
+
+    @staticmethod
+    def generate_account_number():
+        """Generate a unique 12-digit account number."""
+        return str(uuid.uuid4().int)[:12]
