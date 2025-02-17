@@ -31,6 +31,9 @@ class InvoiceCategory(enum.Enum):
 
 class Invoice(Base, IdIntPkMixin):
     account_id: Mapped[int] = mapped_column(ForeignKey("accounts.id"), nullable=False)
+    receiver_account_id: Mapped[int | None] = mapped_column(
+        ForeignKey("accounts.id"), nullable=True
+    )
     amount: Mapped[Decimal] = mapped_column(
         Numeric(precision=12, scale=2), nullable=False
     )
@@ -46,6 +49,9 @@ class Invoice(Base, IdIntPkMixin):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     account: Mapped["Account"] = relationship("Account", back_populates="invoices")
+    receiver_account: Mapped["Account"] = relationship(
+        "Account", foreign_keys=[receiver_account_id]
+    )
     transaction: Mapped["Transaction"] = relationship(
         "Transaction", back_populates="invoice", uselist=False
     )
