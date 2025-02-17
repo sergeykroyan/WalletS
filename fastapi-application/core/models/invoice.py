@@ -22,6 +22,13 @@ class InvoiceStatus(enum.Enum):
     declined = "declined"
 
 
+class InvoiceCategory(enum.Enum):
+    deposit = "deposit"
+    withdrawal = "withdrawal"
+    internal_transfer = "internal_transfer"
+    external_transfer = "external_transfer"
+
+
 class Invoice(Base, IdIntPkMixin):
     account_id: Mapped[int] = mapped_column(ForeignKey("accounts.id"), nullable=False)
     amount: Mapped[Decimal] = mapped_column(
@@ -29,6 +36,9 @@ class Invoice(Base, IdIntPkMixin):
     )
     status: Mapped[InvoiceStatus] = mapped_column(
         Enum(InvoiceStatus), default=InvoiceStatus.pending, nullable=False
+    )
+    category: Mapped[InvoiceCategory] = mapped_column(
+        Enum(InvoiceCategory), default=InvoiceCategory.deposit, nullable=False
     )
     reviewed_by: Mapped[int | None] = mapped_column(
         ForeignKey("users.id"), nullable=True
