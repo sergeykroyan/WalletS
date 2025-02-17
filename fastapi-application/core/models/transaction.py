@@ -52,4 +52,4 @@ class Transaction(Base, IdIntPkMixin):
         foreign_keys=[receiver_account_id],
         back_populates="transactions_received",
     )
-    invoice: Mapped["Invoice"] = relationship("Invoice", back_populates="transactions")
+    invoice: Mapped["Invoice"] = relationship("Invoice", back_populates="transaction")
