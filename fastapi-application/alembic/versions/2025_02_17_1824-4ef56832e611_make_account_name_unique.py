@@ -26,6 +26,4 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_constraint(
-        op.f("uq_accounts_account_name"), "accounts", type_="unique"
-    )
+    op.drop_constraint(op.f("uq_accounts_account_name"), "accounts", type_="unique")
