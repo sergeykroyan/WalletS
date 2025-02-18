@@ -1,42 +1,52 @@
 from pydantic import BaseModel, Field, ConfigDict
 from decimal import Decimal
 from datetime import datetime
+from typing import Optional
+
+from api.schemas.accounts import AccountResponse
 from core.models.invoice import InvoiceStatus, InvoiceCategory
 
 
 class BaseInvoiceSchema(BaseModel):
-    account_number: str
     amount: Decimal = Field(..., gt=0)
 
 
 class DepositInvoiceCreate(BaseInvoiceSchema):
-    pass
+    account_number: str
 
 
 class WithdrawInvoiceCreate(BaseInvoiceSchema):
-    pass
+    account_number: str
 
 
-class InternalTransferInvoiceCreate(BaseModel):
+class InternalTransferInvoiceCreate(BaseInvoiceSchema):
     sender_account_number: str
     receiver_account_number: str
-    amount: Decimal = Field(..., gt=0)
 
 
-class ExternalTransferInvoiceCreate(BaseModel):
+class ExternalTransferInvoiceCreate(BaseInvoiceSchema):
     sender_account_number: str
     receiver_account_number: str
-    amount: Decimal = Field(..., gt=0)
 
 
 class InvoiceStatusUpdate(BaseModel):
     status: InvoiceStatus
 
 
-class InvoiceResponse(BaseInvoiceSchema):
+class BaseInvoiceResponse(BaseModel):
     id: int
+    amount: Decimal
     status: InvoiceStatus
     category: InvoiceCategory
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class InvoiceResponse(BaseInvoiceResponse):
+    account: AccountResponse
+
+
+class TransferInvoiceResponse(BaseInvoiceResponse):
+    account: AccountResponse
+    receiver_account: AccountResponse
