@@ -167,6 +167,7 @@ async def update_invoice_status(
         )
 
     invoice.status = update_data.status
+    invoice.reviewed_by = user.id
 
     if invoice.status == InvoiceStatus.approved:
         await create_transaction_from_invoice(invoice, db)

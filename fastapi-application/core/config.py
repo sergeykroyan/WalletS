@@ -28,6 +28,7 @@ class ApiV1Prefix(BaseSettings):
     users: str = "/users"
     accounts: str = "/accounts"
     invoices: str = "/invoices"
+    transactions: str = "/transactions"
 
 
 class ApiPrefix(BaseModel):
