@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 
 class Account(Base, IdIntPkMixin):
-    account_name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
+    account_name: Mapped[str] = mapped_column(String(100), nullable=False)
     account_number: Mapped[str] = mapped_column(
         String(12), unique=True, index=True, nullable=False
     )
