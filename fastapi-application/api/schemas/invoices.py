@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field, ConfigDict
 from decimal import Decimal
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 from api.schemas.accounts import AccountResponse
 from core.models.invoice import InvoiceStatus, InvoiceCategory
@@ -49,4 +49,9 @@ class InvoiceResponse(BaseInvoiceResponse):
 
 class TransferInvoiceResponse(BaseInvoiceResponse):
     account: AccountResponse
-    receiver_account: AccountResponse
+    receiver_account: Optional[AccountResponse] = None
+
+
+class InvoiceListResponse(BaseModel):
+    total: int
+    invoices: List[TransferInvoiceResponse]
