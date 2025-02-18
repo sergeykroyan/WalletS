@@ -48,11 +48,19 @@ class Invoice(Base, IdIntPkMixin):
     )
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
-    account: Mapped["Account"] = relationship("Account", back_populates="invoices")
+    account: Mapped["Account"] = relationship(
+        "Account", foreign_keys=[account_id], back_populates="invoices"
+    )
     receiver_account: Mapped["Account"] = relationship(
-        "Account", foreign_keys=[receiver_account_id]
+        "Account",
+        foreign_keys=[receiver_account_id],
+        back_populates="received_invoices",
     )
     transaction: Mapped["Transaction"] = relationship(
         "Transaction", back_populates="invoice", uselist=False
     )
     reviewer: Mapped["User"] = relationship("User", back_populates="reviewed_invoices")
+
+    @property
+    def account_number(self):
+        return self.account.account_number if self.account else None

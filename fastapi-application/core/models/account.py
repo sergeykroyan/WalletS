@@ -38,7 +38,12 @@ class Account(Base, IdIntPkMixin):
         back_populates="receiver_account",
     )
     invoices: Mapped[List["Invoice"]] = relationship(
-        "Invoice", back_populates="account"
+        "Invoice", foreign_keys="Invoice.account_id", back_populates="account"
+    )
+    received_invoices: Mapped[List["Invoice"]] = relationship(
+        "Invoice",
+        foreign_keys="Invoice.receiver_account_id",
+        back_populates="receiver_account",
     )
 
     @staticmethod
