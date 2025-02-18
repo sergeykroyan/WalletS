@@ -41,6 +41,13 @@ This will start:
 - **PostgreSQL** on `localhost:5455`
 
 ### Run FastAPI Application
+Create a virtual environment and install dependencies:
+```bash
+python -m venv venv
+
+poetry install
+```
+
 Start the FastAPI server manually:
 ```bash
 python main.py
